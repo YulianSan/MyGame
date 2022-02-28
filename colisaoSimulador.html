@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colisao</title>
+</head>
+<style>
+    /* Aqui é o css do canvas*/
+    canvas{
+        border:1px solid black;
+    }
+
+</style>
+<body>
+    <canvas width="500" height="500" id="canvs"></canvas>
+</body>
+<script>
+    var canvas = document.getElementById('canvs');
+    var ctx = canvas.getContext('2d');
+    var evento=addEventListener("keydown",andar);
+    var globais={
+        frames:0
+    }
+    var objetos={
+        x:0,y:0,colisao:false,velx:1,vely:1,
+        desenharCirculo(x,y){
+
+            ctx.beginPath();
+            ctx.fillStyle="red";
+            //arc(x,y,raio,angulo inicial,angulo final,n sei)
+            ctx.arc(x, y, 35, 0, Math.PI * 2, true); 
+            ctx.fill();
+        },
+        desenharFundo(){
+            ctx.fillStyle="white";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        },
+        desenhaTriangulo(x,y){
+            ctx.fillStyle="black";
+            ctx.beginPath();
+            ctx.moveTo(x,y);
+            ctx.lineTo(x+200,y+100);
+            ctx.lineTo(x,y+100);
+            ctx.fill();
+        },desenharQuadrado(x,y){
+            ctx.fillStyle = "black";
+            ctx.fillRect(x, y, 50, 50);
+        }
+    }
+    function andar(e) {
+        var tecla = e.keyCode;
+        if(tecla == 40 && colisao(200,100,objetos.x,objetos.y,50,50,250,250,0,2)==false){
+            objetos.y+=2;
+        }if(tecla==39 && colisao(200,100,objetos.x,objetos.y,50,50,250,250,2,0)==false){
+            objetos.x+=2;
+        }if(tecla==38 && colisao(200,100,objetos.x,objetos.y,50,50,250,250,0,-2)==false){
+            objetos.y-=2;
+        }if(tecla==37 && colisao(200,100,objetos.x,objetos.y,50,50,250,250,-2,0)==false){
+            objetos.x-=2;
+        }
+    }
+    function desenharTudo() {
+        objetos.desenharFundo();
+        objetos.desenhaTriangulo(objetos.x,objetos.y);
+        objetos.desenharQuadrado(250,250);
+
+        
+    }
+    function colisao(w,h,x,y,w1,h1,x1,y1,vx,vy) {
+        //DIREITA DO QUADRADO -> Triangulo mirado a esquerda
+        y+=vy;
+        x+=vx;
+        
+        if(x+w>x1 && y+h>y1 && x<w1+x1 && y<y1+h1){
+            
+            var cmcColisaoX = x1;
+            var cmcColisaoY = h1+y1;
+
+            var sobe=h/w;
+            
+            var colisaoX = w-(w+x-cmcColisaoX);
+            
+            var colisaoY = (colisaoX*sobe);
+            var yR=y+(colisaoY)
+
+            
+            colisaoX =(w+x-cmcColisaoX)
+            console.log(colisaoX)
+            if(colisaoX<=0 || y1>=(y-vy)+h || colisaoX>=w /*aqui a colisao do lado direito*/){
+                
+                return true;
+
+            }
+            colisaoX = w-(w+x-cmcColisaoX);
+            if(x+(colisaoX)==cmcColisaoX && colisaoY+yR>cmcColisaoY && yR<cmcColisaoY){
+               
+                return true;
+
+            }
+            
+            return false;
+            
+        }
+        return false;
+        
+    }
+    
+    function loop() {
+        desenharTudo();
+        globais.frames++;
+        requestAnimationFrame(loop);
+    }
+    loop();
+    // var sobe=137/68;
+            // var cmc= 218+element.y+globais.posicaoY+137;
+            // var cmc1=68+(143+element.x)+globais.posicaoX;
+            // if(cmc1>gravida.x+vx+15 && cmc>gravida.y+vy && 143+element.x+globais.posicaoX<gravida.la+gravida.x+vx+15 && 218+element.y+globais.posicaoY<gravida.y+vy+gravida.al){
+                
+            //     var execuX= 0;
+            //     var execuY= 137;
+            //     for(var f = 143;f>0;f-=sobe){
+            //         execuX+=1;
+            //         execuY-= sobe;
+            //         var Nx=(143+element.x+globais.posicaoX+execuX);
+            //         var Ny=(218+element.y+globais.posicaoY+execuY);
+            //         if(Nx>gravida.x+vx+15 && Nx<gravida.x+15+gravida.la+vx && Ny>gravida.y+vy && 218+element.y+globais.posicaoY<gravida.al+gravida.y+vy && gravida.colidiu==false){
+            //             gravida.colidiu=true;
+            //             f=0;i=0;
+            //             return true;
+            //         }
+            //     }
+            // }
+</script>
+
+</html>
