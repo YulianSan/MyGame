@@ -1,9 +1,65 @@
+comandosTeclado={
+
+    ArrowUp(){
+        gravida.cima=true;
+    },
+
+    ArrowDown(){
+        gravida.baixo=true;
+    },
+
+    ArrowRight(){
+        gravida.direita=true;
+    },
+
+    ArrowLeft(){
+        gravida.esquerda=true;
+    },
+
+    e(){
+        if(interagir.falaPosivel=="" || interagir.falaPosivel==null){
+            console.log("Ninguém para interagir");
+        }else{
+            if(interagir.falaAceita=="" || interagir.falaAceita==null){
+                interagir.falaAceita=interagir.falaPosivel.slice();
+                interagir.nomeAceita=interagir.nome;
+            } 
+        }
+    },
+
+    p(){
+        if(globais.PegarItem==-1){
+            console.log("Nem um item próximo");
+        }else{
+            var item=armas.armamentos[globais.PegarItem];
+            if(gravida.inventario.length>0){
+                for(var i=0;i<gravida.inventario.length;i++) {
+                    if(item.nome==gravida.inventario[i].nome ){
+                        gravida.inventario[i].espaco+=item.espaco;
+                        armas.armamentos.splice(globais.PegarItem, 1); 
+                        i=gravida.inventario.length;
+                        
+                    }else if(gravida.inventario.length<9 && i+1==gravida.inventario.length){
+                        gravida.inventario[gravida.inventario.length]=item;
+                        armas.armamentos.splice(globais.PegarItem, 1); 
+                        i=gravida.inventario.length;
+                    } 
+                }
+            }else{
+                gravida.inventario[gravida.inventario.length]=item;
+                armas.armamentos.splice(globais.PegarItem, 1);   
+            }
+        }
+    }
+}
+
 var gravida={
     img:Gravida,
     al:191/5,la:95/5,x:400,y:200,
     alI:191,laI:95,xI:36,yI:11,nome:"Grávida de Taubaté",
-    mGravida:0 /*Frame da grávida*/ ,movendo:false,
+    mGravida:0, movendo:false,
     inventario:[],
+    
 
     esquerda:false,direita:false,cima:false,baixo:false,//variáveis de controle do movimento
     
@@ -20,7 +76,6 @@ var gravida={
                 //POSICIONANDO O ITEM NO INVETÁRIO
                 switch(i){
                     case 0:
-                        
                         element.x=x;
                         element.y=y;
                         break;
@@ -91,6 +146,20 @@ var gravida={
         npc.desenharNPCDepois();
 
     },
+
+    tecladoComando(e){
+        //BAIXO
+        if(globais.nTela==1){
+            var tecla = e.key;
+            console.log(tecla)
+            const comandoTecla = comandosTeclado[tecla];
+            if(comandoTecla){
+                comandoTecla()      
+            }
+            
+        }
+        return
+    },
     // MOVER GRÁVIDA
     mover(){
         if(this.baixo && gravida.y<212.5 && interagir.falaAceita=="" && colisao(-1,2)==false){
@@ -133,71 +202,8 @@ var gravida={
             this.movendo=true;
         }
     },
-    tecladoComando(e){
-        //BAIXO
-        var tecla = e.keyCode;
-        if(globais.nTela==1){
-            //bloco de codigo para movimentação
-            if(tecla<=40 && tecla >=37){
-                //BAIXO
-                if(tecla == 40){
-                    this.baixo=true;
-                }
-                //DIREITA
-                if(tecla == 39){
-                    this.direita=true;
-                }
-                //CIMA
-                if(tecla == 38){
-                    this.cima=true;
-                }
-                //ESQUERDA
-                if(tecla == 37){
-                    this.esquerda=true;
-                }
-                
-                
-            }
-            
-            if(tecla==69){
-                if(interagir.falaPosivel=="" || interagir.falaPosivel==null){
-                    console.log("Ninguém para interagir");
-                }else{
-                    if(interagir.falaAceita=="" || interagir.falaAceita==null){
-                        interagir.falaAceita=interagir.falaPosivel.slice();
-                        interagir.nomeAceita=interagir.nome;
-                    } 
-                }   
-            }
-            //Pegar Item e colocar no inventario
-            if(tecla==80){
-                if(globais.PegarItem==-1){
-                    console.log("Nem um item próximo");
-                }else{
-                    var item=armas.armamentos[globais.PegarItem];
-                    if(gravida.inventario.length>0){
-                        for(var i=0;i<gravida.inventario.length;i++) {
-                            if(item.nome==gravida.inventario[i].nome ){
-                                gravida.inventario[i].espaco+=item.espaco;
-                                armas.armamentos.splice(globais.PegarItem, 1); 
-                                i=gravida.inventario.length;
-                                
-                            }else if(gravida.inventario.length<9 && i+1==gravida.inventario.length){
-                                gravida.inventario[gravida.inventario.length]=item;
-                                armas.armamentos.splice(globais.PegarItem, 1); 
-                                i=gravida.inventario.length;
-                            } 
-                        }
-                    }else{
-                        gravida.inventario[gravida.inventario.length]=item;
-                        armas.armamentos.splice(globais.PegarItem, 1); 
-                         
-                    }
-                    
-                }  
-            }
-        }  
-    },
+
+    
     // ANIMA ELA DE ACORDO COM O FRAMES
     anima(){
         if (frames%30==0 && this.movendo) {
