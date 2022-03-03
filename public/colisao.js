@@ -1,8 +1,8 @@
-function colisao(vx,vy) { 
-    for (var i = 0; i < fundo.predios.length; i++) {
-        var element = fundo.predios[i];
-        if(fundo.predios[i].n==0 ){
-            if(fundo.predios[i+1]!= undefined && fundo.predios[i+1].n==1){
+function colisao(vx,vy,predios) { 
+    for (var i = 0; i < predios.length; i++) {
+        var element = predios[i];
+        if(predios[i].n==0 ){
+            if(predios[i+1]!= undefined && predios[i+1].n==1){
                 
                 if(68+element.x+globais.posicaoX+143>gravida.x+vx &&
                     element.y+globais.posicaoY+218+137>gravida.y+vy+33 && 
@@ -71,7 +71,6 @@ function colisao(vx,vy) {
                     var colisaoY = (colisaoX*sobe);
                     var yR=element.y+174+globais.posicaoY+(137-colisaoY)
         
-                    console.log(colisaoX)
                     colisaoX =(68+(element.x+2+globais.posicaoX)-cmcColisaoX);
                     if(colisaoX<=0 ||
                         gravida.y>=(element.y+174+globais.posicaoY)+137){
@@ -88,7 +87,7 @@ function colisao(vx,vy) {
             }  
         }
 
-        else if(fundo.predios[i].n==1 ){
+        else if(predios[i].n==1 ){
             if(68+element.x+globais.posicaoX+143>gravida.x+vx &&
                 element.y+globais.posicaoY+218+137>gravida.y+vy+30 && 
                 element.x+globais.posicaoX+143<gravida.la+gravida.x+vx &&
@@ -128,7 +127,6 @@ function colisao(vx,vy) {
                 var colisaoY = (colisaoX*sobe);
                 var yR=element.y+174+globais.posicaoY+(137-colisaoY)
     
-                console.log(colisaoX)
                 colisaoX =(68+(element.x+2+globais.posicaoX)-cmcColisaoX);
                 if(colisaoX<=0 ||
                     gravida.y>=(element.y+174+globais.posicaoY)+137){

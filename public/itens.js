@@ -1,31 +1,32 @@
 //ITENS 
 var armas={
-    armamentos:[],
     //DADOS NECESSÁRIOS PARA QUE CRIE UM ITEM NUM=SKIN , NOME=NOME DO ITEM,HIST:HISTÓRIA DO ITEM
     CriarArmamento(num,nome,x,y,dano,vida,hist){
+        let itens={}
         if(num==1){
             //CRIA UM ITEM
-            this.armamentos.push({
+            itens={
                 img:item,nome:nome,x:x,y:y,dano:dano,
                 xI:0,yI:0,laI:190,alI:220,
                 vida:vida,al:22,la:19,historia:hist,espaco:1,nAnima:0
-            });
+            }
         }
         if(num==2){
-            this.armamentos.push({
+            itens={
                 img:item,nome:nome,x:x,y:y,dano:dano,
                 xI:205,yI:26,laI:36,alI:171,
                 vida:vida,al:30,la:10,historia:hist,espaco:1,nAnima:0
-            });
+            }
         }
+        return itens
     },
     //CODIGO QUE DESENHA 
-    desenharArmamento(){
+    desenharArmamento(armas){
         //CODIGO PARA GERAR UM ITEM
         globais.PegarItem=-1;
         
-        for (let i in this.armamentos) {
-            var element = this.armamentos[i];
+        for (let i in armas) {
+            var element = armas[i];
             //DA UMA ANIMAÇÃO BÁSICA AUMENTANDO E DIMINUINDO O TAMANHO DO ITEM
             
             if(element.dano != 0){
@@ -84,7 +85,7 @@ var armas={
             ctx.fillText("Dano: "+d, 745, 60);
             ctx.fillText("Vida: "+v, 745, 75);
         }else{
-            printAtWordWrap(ctx,"História: "+his,745, 60,10,120);
+            TextoComQuebraLinha(ctx,"História: "+his,745, 60,10,120);
         }
         ctx.fillText("Nome: "+n, 745, 45);
         

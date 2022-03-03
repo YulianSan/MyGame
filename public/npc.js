@@ -1,8 +1,7 @@
 var npc={
-    personagem:[],
     //personagens desenhados depois da gravida de taubaté
     personagemDepois:[0],
-    desenharNPC(){
+    desenharNPC(npcs){
         //CODIGO PARA DESENHAR OS PERSONAGENS ----------- DADOS PARA CRIAR(NOME,NÚMERO DA SKIN, [FALA],X,Y,COR DO NOME)---------------[]=ARRAY
 
         //SEMPRE ZERANDO A VARIÁVEL POIS E USANDA EM UMA FUNÇÃO QUE USA ELA COMO ENTRADA, SE NÃO FOR ZERADA
@@ -10,10 +9,10 @@ var npc={
         interagir.falaPosivel="";
         this.personagemDepois.splice(0, npc.personagemDepois.length);
 
-        for (let i in this.personagem) {
+        for (let i in npcs) {
             
             //ANIMAÇÃO DE CADA SKIN DE PERSONAGEM
-            const element = this.personagem[i];
+            const element = npcs[i];
             if (frames%30==0) {
                 element.nAnima++;
                 switch (element.num) {
@@ -89,7 +88,7 @@ var npc={
     //desenha os NPCS que estaram na frente da grávida, função chamada na gravida.desenhar
     desenharNPCDepois(){
         for(let i in npc.personagemDepois){
-            const element = npc.personagem[npc.personagemDepois[i].num];
+            const element = estadoTelaGame[globais.nTela].personagens[npc.personagemDepois[i].num];
             ctx.drawImage(element.img,element.xI,element.yI,element.laI,element.alI,element.x+globais.posicaoX, element.y+globais.posicaoY,element.la,element.al);
             ctx.textAlign = "center";
             ctx.fillStyle = element.cor;
@@ -100,23 +99,25 @@ var npc={
     },
     //CRIAÇÃO DOS PERSONAGEM -------------- CADA NÚMERO REPRESENTA UMA SKIN
     CriarNPC(nome,num,fala,x,y,cor){
+        let personagem = {}
         if(num==1){
-                this.personagem.push({
+            personagem={
                 id:nome,fala:fala.slice(),x:x,y:y,
                 xI:16,yI:24,alI:223,laI:127,
                 al:44.6*1.10,la:25.4*1.10,img:NPC1,
                 cor:cor,nAnima:0,num:num
-            });
+            }
             
         }
         if(num==2){
-                this.personagem.push({
+            personagem={
                 id:nome,fala:fala.slice(),x:x,y:y,
                 xI:172,yI:40,alI:459,laI:247,
                 al:45.9*1.1,la:24.7*1.1,img:NPC2,
                 cor:cor,nAnima:0,num:num
-            });
+            }
         }
+        return personagem
         
     },
     colisao(){

@@ -1,5 +1,5 @@
 var fundo={
-    chao:[],predios:[],botoes:[],
+    chao:[],botoes:[],
     Antigoy:0,Antigox:0,
     ladox:0,ladoy:0,
     // DESENHA BOTÃO
@@ -29,23 +29,17 @@ var fundo={
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     },
     // DESENHA PERDIOS 
-    desenharPredio(){
-        for (var element of this.predios) {
+    desenharPredio(predio){
+        for (var element of predio) {
             ctx.drawImage(element.img,element.xI,element.yI,element.laI,element.alI,element.x+globais.posicaoX, element.y+globais.posicaoY,element.la,element.al);
 
         }
     },
     // DESENHA CHÃO
-    desenharChao(){
-        if(this.chao.length<5){this.CriarChao(0);}
-        else if(this.chao.length<6){this.CriarChao(6);}
-        else if(this.chao.length<8){this.CriarChao(1);}
-        else if(this.chao.length<9){this.CriarChao(4);}
-        else if(this.chao.length<11){this.CriarChao(0);}
-        else if(this.chao.length<12){this.CriarChao(6);}
-        else if(this.chao.length<14){this.CriarChao(1);}
+    desenharChao(chao){
+        
         this.Antigoy=0;this.Antigox=0;
-        for (var element of this.chao) {
+        for (var element of chao) {
             
             ctx.drawImage(element.img,element.xI,element.yI,element.laI,element.alI,this.Antigox+element.x+globais.posicaoX, this.Antigoy+element.y+globais.posicaoY,element.la,element.al);
             switch (element.dir) {
@@ -80,42 +74,45 @@ var fundo={
     },
     //CRIAR CHÃO
     CriarChao(n){
+        let chao={}
         if(n==0 || n==2){
-            this.chao.push({
+            chao={
                 img:fundoImg,alI:177,laI:208,al:177,la:208,x:0,y:0,xI:223,yI:16,dir:n
-            });
+            }
         }if(n==1 || n==3){
-            this.chao.push({
+            chao={
                 img:fundoImg,alI:177,laI:212,al:177,la:212,x:0,y:0,xI:3,yI:12,dir:n
-            });
+            }
         }if(n==4){
-            this.chao.push({
+            chao={
                 img:fundoImg,alI:150,laI:215,al:150,la:215,x:0,y:27,xI:20,yI:580,dir:n
-            });
+            }
         }if(n==5){
-            this.chao.push({
+            chao={
                 img:fundoImg,alI:215,laI:150,al:215,la:150,x:0,y:0,xI:258,yI:594,dir:n
-            });
+            }
         }if(n==6){
-            this.chao.push({
+            chao={
                 img:fundoImg,alI:150,laI:215,al:150,la:215,x:0,y:0,xI:258,yI:594,dir:n
-            });
+            }
         }if(n==7){
-            this.chao.push({
+            chao={
                 img:fundoImg,alI:61,laI:62,al:122,la:121,x:0,y:0,xI:164,yI:115,dir:n
-            });
+            }
         }if(n==8){
-            this.chao.push({
+            chao={
                 img:fundoImg,alI:105,laI:110,al:105,la:110,x:0,y:0,xI:171,yI:3,dir:n
-            })
+            }
         }
+        return chao
     },
     // CRIA PREDIOS
     CriarPredio(n,skin){
+        let predio=[]
         for (let i = 0;  i< n; i++) {
             if(skin==0){
                 
-                if(fundo.predios.length>0 && fundo.predios[fundo.predios.length-1].n!=0 ){
+                if(predio.length>0 && predio[predio.length-1].n!=0 ){
                     this.ladox-=69;
                     this.ladoy+=137;
                     
@@ -123,27 +120,36 @@ var fundo={
                     this.ladoy+=44;
 
                 }
-                this.predios.push({
-                    img:fundoImg,alI:352,laI:216,al:352,la:216,x:60+this.ladox,y:-320+this.ladoy,xI:17,yI:213,n:skin
-                });
+                predio.push({
+                    img:fundoImg,alI:352,laI:216,al:352,la:216,
+                    x:60+this.ladox,y:-320+this.ladoy,xI:17,yI:213,
+                    n:skin
+                })
                 
                 this.ladox+=142;
                 this.ladoy+=44;
-            }if(skin==1){
-                if(fundo.predios.length>0 && fundo.predios[fundo.predios.length-1].n==0){
+                
+            }
+            if(skin==1){
+                if(predio.length>0 && predio[predio.length-1].n==0){
                     this.ladox-=142;
                     this.ladoy-=44;
 
                     this.ladox+=69;
                     this.ladoy-=137;
                 }
-                this.predios.push({
-                    img:fundoImg,alI:352,laI:216,al:352,la:216,x:60+this.ladox,y:-320+this.ladoy,xI:265,yI:211,n:skin
-                });
+                predio={
+                    img:fundoImg,
+                    alI:352,laI:216,al:352,la:216,
+                    x:60+this.ladox,y:-320+this.ladoy,xI:265,yI:211,
+                    n:skin
+                }
                 this.ladox+=69;
                 this.ladoy-=137;
             }
+            
         }
+        return predio
     },
     
 }

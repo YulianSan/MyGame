@@ -1,58 +1,3 @@
-comandosTeclado={
-
-    ArrowUp(){
-        gravida.cima=true;
-    },
-
-    ArrowDown(){
-        gravida.baixo=true;
-    },
-
-    ArrowRight(){
-        gravida.direita=true;
-    },
-
-    ArrowLeft(){
-        gravida.esquerda=true;
-    },
-
-    e(){
-        if(interagir.falaPosivel=="" || interagir.falaPosivel==null){
-            console.log("Ninguém para interagir");
-        }else{
-            if(interagir.falaAceita=="" || interagir.falaAceita==null){
-                interagir.falaAceita=interagir.falaPosivel.slice();
-                interagir.nomeAceita=interagir.nome;
-            } 
-        }
-    },
-
-    p(){
-        if(globais.PegarItem==-1){
-            console.log("Nem um item próximo");
-        }else{
-            var item=armas.armamentos[globais.PegarItem];
-            if(gravida.inventario.length>0){
-                for(var i=0;i<gravida.inventario.length;i++) {
-                    if(item.nome==gravida.inventario[i].nome ){
-                        gravida.inventario[i].espaco+=item.espaco;
-                        armas.armamentos.splice(globais.PegarItem, 1); 
-                        i=gravida.inventario.length;
-                        
-                    }else if(gravida.inventario.length<9 && i+1==gravida.inventario.length){
-                        gravida.inventario[gravida.inventario.length]=item;
-                        armas.armamentos.splice(globais.PegarItem, 1); 
-                        i=gravida.inventario.length;
-                    } 
-                }
-            }else{
-                gravida.inventario[gravida.inventario.length]=item;
-                armas.armamentos.splice(globais.PegarItem, 1);   
-            }
-        }
-    }
-}
-
 var gravida={
     img:Gravida,
     al:191/5,la:95/5,x:400,y:200,
@@ -149,9 +94,8 @@ var gravida={
 
     tecladoComando(e){
         //BAIXO
-        if(globais.nTela==1){
+        if(globais.nTela==0 || globais.nTela==2){
             var tecla = e.key;
-            console.log(tecla)
             const comandoTecla = comandosTeclado[tecla];
             if(comandoTecla){
                 comandoTecla()      
@@ -162,41 +106,41 @@ var gravida={
     },
     // MOVER GRÁVIDA
     mover(){
-        if(this.baixo && gravida.y<212.5 && interagir.falaAceita=="" && colisao(-1,2)==false){
+        if(this.baixo && gravida.y<212.5 && interagir.falaAceita=="" && !colisao(-1,2,estadoTelaGame[globais.nTela].predios)){
             this.x-=0.5;
             this.y+=1;
             this.movendo=true;
-        }else if(this.baixo && gravida.y>=212.5 && interagir.falaAceita=="" && colisao(-1,2)==false){
+        }else if(this.baixo && gravida.y>=212.5 && interagir.falaAceita=="" && !colisao(-1,2,estadoTelaGame[globais.nTela].predios)){
             globais.posicaoX+=0.5;
             globais.posicaoY-=1;
             this.movendo=true;
         }
         //DIREITA
-        if(this.direita && gravida.x<425 && interagir.falaAceita=="" && colisao(2,0.629)==false){
+        if(this.direita && gravida.x<425 && interagir.falaAceita=="" && !colisao(2,0.629,estadoTelaGame[globais.nTela].predios)){
             this.x+=1;
             this.y+=0.3145;
             this.movendo=true;
-        }else if(this.direita && gravida.x>=425 && interagir.falaAceita=="" && colisao(2,0.629)==false){
+        }else if(this.direita && gravida.x>=425 && interagir.falaAceita=="" && !colisao(2,0.629,estadoTelaGame[globais.nTela].predios)){
             globais.posicaoX-=1;
             globais.posicaoY-=0.3145;
             this.movendo=true;
         }
         //CIMA
-        if(this.cima && gravida.y>182.5 && interagir.falaAceita=="" && colisao(1,-2)==false){
+        if(this.cima && gravida.y>182.5 && interagir.falaAceita=="" && !colisao(1,-2,estadoTelaGame[globais.nTela].predios)){
             this.x+=0.5;
             this.y-=1;
             this.movendo=true;
-        }else if(this.cima && gravida.y<=182.5 && interagir.falaAceita=="" && colisao(1,-2)==false){
+        }else if(this.cima && gravida.y<=182.5 && interagir.falaAceita=="" && !colisao(1,-2,estadoTelaGame[globais.nTela].predios)){
             globais.posicaoX-=0.5;
             globais.posicaoY+=1;
             this.movendo=true;
         }
         //ESQUERDA
-        if(this.esquerda && gravida.x>375 && interagir.falaAceita=="" && colisao(-2,-0.629)==false){
+        if(this.esquerda && gravida.x>375 && interagir.falaAceita=="" && !colisao(-2,-0.629,estadoTelaGame[globais.nTela].predios)){
             this.x-=1;
             this.y-=0.3145;
             this.movendo=true;
-        }else if(this.esquerda && gravida.x<=375 && interagir.falaAceita=="" && colisao(-2,-0.629)==false){
+        }else if(this.esquerda && gravida.x<=375 && interagir.falaAceita=="" && !colisao(-2,-0.629,estadoTelaGame[globais.nTela].predios)){
             globais.posicaoX+=1;
             globais.posicaoY+=0.3145;
             this.movendo=true;

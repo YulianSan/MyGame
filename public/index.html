@@ -46,108 +46,24 @@
     <h3 id="msg"><b>Carregando...</b></h3>
     <canvas id="Janela" width="900" height="550"></canvas>
     
-    <script src="./variaveisEventos.js"></script>
+    
+    <script src="./entradaTeclado.js"></script>
     <script src="./interacao.js"></script>
     <script src="./itens.js"></script>
     <script src="./npc.js"></script>
     <script src="./fundo.js"></script>
     <script src="./colisao.js"></script>
+    <script src="./telas.js"></script>
+    <script src="./variaveisEventos.js"></script>
     <script src="./gravida.js"></script>
     <script>
-        
-        function desenharTudo(){
-            if(globais.desenhar){
-                npc.CriarNPC("Vini Hoshi",2,["Vagabunda . . . . ","O poeta é um fingidor.Finge tão completamente.Que chega a fingir que é dor.A dor que deveras sente.E os que lêem o que escreve,Na dor lida sentem bem,Não as duas que ele teve,Mas só a que eles não têm.E assim nas calhas da rodaGira, a entreter a razão,Esse comboio de cordaQue se chama o coração."],450,230,"RosyBrown");
-                npc.CriarNPC("Yulian Santiago",1,["E o Mario?","Quem é mario?","Aquele que te comeu atrás do armário KAKAKAKA","E o Alex ? (agora vou trollar ele KKK)","O primo do Dunha?","Quem é Dunha?","Aquele que te comeu com a unha KIHSOHOI"],700,430,"blue");
-                npc.CriarNPC("Luiz",1,["Já viu arcade?"],850,400,"black");
-                npc.CriarNPC("Marcelo",1,["Quer ouvir algo aleatório?","Não","ok :("],40,100,"purple");
-                npc.CriarNPC("Symon",1,["Eae tudo em cima?"],200,300,"black");
-                npc.CriarNPC("Maria",1,["Ja arrumou a cama?"],200,500,"pink");
-                npc.CriarNPC("Alex",1,["Cabron!!!","OI","Eae"],250,500,"yellow");
-		        npc.CriarNPC("Sudario",1,["BABA!!!"],10,10,"black");
-                npc.CriarNPC("Renato",2,["Senhor toma conta desse bairro!"],90,90,"yellow");
-                npc.CriarNPC("Anderson",1,["Joinha!","QUE?","ND"],200,90,"black");
-                npc.CriarNPC("Alejandro",1,["Desviva","Ta noiado fi?"],-200,-90,"black");
-                npc.CriarNPC("Vinicius",1,["EAe!","oi?","que?","jfsoihfa","IUDWOIIFWE"],-100,0,"red");
-                armas.CriarArmamento(1,"graveto",200,170,0,100,"Esse graveto tem historia, ele participou da foto mais famosa da Grávida de Taubaté");
-                armas.CriarArmamento(2,"faca",300,340,10,10,"A famosa faca do meme \'Olha a faca\'");
-                fundo.CriarPredio(5,0);
-                fundo.CriarPredio(3,1);
-                fundo.CriarPredio(3,0);
-                fundo.CriarPredio(3,1);
-                
-                globais.desenhar=false;
-            }
-        }
-        
-        //colocar texto com quebra de linha automática
-        function printAtWordWrap( context , text, x, y, lineHeight, fitWidth)
-        {
-            fitWidth = fitWidth || 0;
-            
-            if (fitWidth <= 0)
-            {
-                context.fillText( text, x, y );
-                return;
-            }
-            var words = text.split(' ');
-            var currentLine = 0;
-            var idx = 1;
-            while (words.length > 0 && idx <= words.length)
-            {
-                var str = words.slice(0,idx).join(' ');
-                var w = context.measureText(str).width;
-                if ( w > fitWidth )
-                {
-                    if (idx==1)
-                    {
-                        idx=2;
-                    }
-                    context.fillText( words.slice(0,idx-1).join(' '), x, y + (lineHeight*currentLine) );
-                    currentLine++;
-                    words = words.splice(idx-1);
-                    idx = 1;
-                }
-                else
-                {idx++;}
-            }
-            if  (idx > 0)
-                context.fillText( words.join(' '), x, y + (lineHeight*currentLine) );
-        }
 
-        // QUAL TELA TA SENDO EXECUTADA POR MEIO DE UMA VÁRIAVEL ----------- nTela 
-        function Telas(){
-            switch (globais.nTela) {
-                case 1:
-                    fundo.desenharResto("#61a225");
-                    fundo.desenharChao();
-                    gravida.anima();
-                    fundo.desenharPredio();
-                    armas.desenharArmamento();
-                    npc.desenharNPC();
-                    desenharTudo();
-                    gravida.desenhar(); 
-                    gravida.mover();
-                    interagir.falar();
-                    fundo.desenharBotoes();
-                    
-                break;
-                case 2:
-                    fundo.desenharResto("#57422f");
-                    gravida.desenharInventario();
-                    
-                    ctx.font= '22px "Supermercado One"';
-                    ctx.fillStyle = "black";
-                    ctx.textAlign = "center";
-                    ctx.fillText(gravida.nome, 707.5, 310,185);
-                    ctx.textAlign = "left";
-                    ctx.drawImage(Gravida,72, 536,95,191,656, 63,95,191);
-                break;
-            }
+        const globais = {
+            posicaoX:0,posicaoY:0,nTela:0,PegarItem:-1,
         }
         //LOOP
         function main() {
-            Telas();
+            telaDesenhar();
             frames++;    
             requestAnimationFrame(main);
         }

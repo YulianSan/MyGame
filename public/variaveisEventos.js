@@ -23,13 +23,13 @@
         addEventListener("keyup",function(e){gravida.Parar(e);});
         canvas.addEventListener("click",Clicar);
         window.onload=function carregado(){
-            setTimeout(()=>{
-                msg.style.display="none";
-                canvas.style.display="inherit";
-                canvas.style.animation="surgir 1.5s"
-            },3000)
-            // msg.style.display="none";
-            // canvas.style.display="inherit";
+            // setTimeout(()=>{
+            //     msg.style.display="none";
+            //     canvas.style.display="inherit";
+            //     canvas.style.animation="surgir 1.5s"
+            // },3000)
+            msg.style.display="none";
+            canvas.style.display="inherit";
         }
         
         //CLICKS COM COLISÕES 
@@ -41,10 +41,11 @@
             //EVENTOS DE CLICK PASSANDO O X E O Y
 
             //CLICKS PARA A TELA 1
-            if(globais.nTela==1){
+            if(globais.nTela==0 || globais.nTela==2){
                 //ABRIR INVENTARIO
                 if(posY>440 && posX>850){
-                    globais.nTela=2;
+                    limparTela(1)
+                    
                 }if(posY<=57 && posX<=57 && posX>10 && posY>10){
                     var player = document.querySelector("#audio1");
                     //O ÁUDIO N PAUSADO
@@ -77,19 +78,18 @@
                     }
                 }
             }//CLICKS DA TELA 2
-            if(globais.nTela==2){
+            if(globais.nTela==1 || globais.nTela==2){
                 for(element of gravida.inventario){
                     if(element.x<posX && element.y<posY && element.x+68>posX && element.y+60>posY){
                         console.log(element);
                     }
                 }
                 if(posY>18 && posY<70 && posX>97 && posX<150){
-                    globais.nTela=1;
+                    limparTela(0)
+                    
+                    
                 }
             }
         }
         //VARIÁVEIS
-        var globais = {
-            posicaoX:0,posicaoY:0,nTela:1,
-            PegarItem:-1,desenhar:true
-        }
+        
