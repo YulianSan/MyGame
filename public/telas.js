@@ -41,9 +41,7 @@ TelaGame.push((indice)=>{
                 armas.CriarArmamento(2,"faca",300,340,10,10,"A famosa faca do meme \'Olha a faca\'")
             ],
             predios:
-            fundo.CriarPredio(5,1,fundo.CriarPredio(5,0,[]))
-                
-            
+                fundo.CriarPredio(5,1,fundo.CriarPredio(5,0,[]))
             ,
             ruas:[
                 fundo.CriarChao(0),
@@ -105,18 +103,19 @@ TelaGame.push((indice)=>{
                 posicaoY=0
             ],
             personagens:[ 
-                npc.CriarNPC("Yulian Santiago A. Almanza",1,["Parabéns por conseguir"],0,0,"#fff"),
-                npc.CriarNPC("Soldados",1,["Parabéns"],-50,-50,"#f00"),
-                npc.CriarNPC("Soldados",1,["Parabéns"],-60,-40,"#f00"),
-                npc.CriarNPC("Soldados",1,["Parabéns"],-70,-30,"#f00"),
-                npc.CriarNPC("Soldados",1,["Parabéns"],-80,-20,"#f00"),
-                npc.CriarNPC("Soldados",1,["Parabéns"],-90,-10,"#f00"),
+                npc.CriarNPC("Yulian Santiago A. Almanza",1,["Parabéns por conseguir"],0,0,"rgba(255,255,255,0.6)"),
+                
+                npc.CriarNPC("Soldados",1,["Parabéns"],-50,-50,"rgba(255,0,0,0.6)"),
+                npc.CriarNPC("Soldados",1,["Parabéns"],-60,-40,"rgba(255,0,0,0.6)"),
+                npc.CriarNPC("Soldados",1,["Parabéns"],-70,-30,"rgba(255,0,0,0.6)"),
+                npc.CriarNPC("Soldados",1,["Parabéns"],-80,-20,"rgba(255,0,0,0.6)"),
+                npc.CriarNPC("Soldados",1,["Parabéns"],-90,-10,"rgba(255,0,0,0.6)"),
 
-                npc.CriarNPC("Soldados",1,["Parabéns"],-100,-60,"#f00"),
-                npc.CriarNPC("Soldados",1,["Parabéns"],-110,-50,"#f00"),
-                npc.CriarNPC("Soldados",1,["Parabéns"],-120,-40,"#f00"),
-                npc.CriarNPC("Soldados",1,["Parabéns"],-130,-30,"#f00"),
-                npc.CriarNPC("Soldados",1,["Parabéns"],-140,-20,"#f00"),          
+                npc.CriarNPC("Soldados",1,["Parabéns"],-100,-60,"rgba(255,0,0,0.6)"),
+                npc.CriarNPC("Soldados",1,["Parabéns"],-110,-50,"rgba(255,0,0,0.6)"),
+                npc.CriarNPC("Soldados",1,["Parabéns"],-120,-40,"rgba(255,0,0,0.6)"),
+                npc.CriarNPC("Soldados",1,["Parabéns"],-130,-30,"rgba(255,0,0,0.6)"),
+                npc.CriarNPC("Soldados",1,["Parabéns"],-140,-20,"rgba(255,0,0,0.6)"),          
             ],
             itens:[
                 armas.CriarArmamento(1,"Troféu",200,170,0,100,"Para béns, olha o seu Troféu"),
@@ -127,11 +126,8 @@ TelaGame.push((indice)=>{
                 fundo.CriarChao(0),
                 fundo.CriarChao(0),
                 fundo.CriarChao(0),
-                
             ]
         }
-        
-        
     }
 
     fundo.desenharResto("#000");
@@ -158,7 +154,5 @@ function limparTela(TelaQueSeraAtiva){
     }
     globais.historicoDeNavegacao.push(TelaQueSeraAtiva)
     globais.nTela=TelaQueSeraAtiva
-    
-    
 }
     

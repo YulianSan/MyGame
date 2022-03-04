@@ -1,7 +1,6 @@
 var fundo={
     chao:[],botoes:[],
     Antigoy:0,Antigox:0,
-    ladox:0,ladoy:0,
     // DESENHA BOTÃO
     desenharBotoes(){
         if(this.botoes.length<1){this.CriarBotoes(1)}
@@ -115,45 +114,59 @@ var fundo={
         
         let predio=prediosJaCriados
         
-        for (let i = 0;  i< n; i++) {
-            if(skin==0){
+        
                 
-                if(predio.length>0 && predio[predio.length-1].n!=0 ){
-                    this.ladox-=69;
-                    this.ladoy+=137;
-                    
-                    this.ladox+=142;
-                    this.ladoy+=44;
 
+        for (let i = 0;  i< n; i++) {
+            // this.ladox+=69;
+            // this.ladoy-=137;
+            
+            // this.ladox+=142;
+            // this.ladoy+=44;
+            let predioAnterior=predio[predio.length-1] || 0
+            
+            let proximoX=60
+            let proximoY=-320
+
+            if(predioAnterior!=0){
+                proximoX=predioAnterior.x
+                proximoY=predioAnterior.y
+
+                if(skin==0){
+                    proximoX+=142
+                    proximoY+=44
                 }
+
+                else if(skin==1){
+                    proximoX+=69
+                    proximoY-=137
+                
+                }
+            }
+            
+            console.log(proximoX)
+
+            if(skin==0){
+
                 predio.push({
                     img:fundoImg,alI:352,laI:216,al:352,la:216,
-                    x:60+this.ladox,y:-320+this.ladoy,xI:17,yI:213,
+                    x:proximoX,y:proximoY,xI:17,yI:213,
                     n:skin
                 })
-                
-                this.ladox+=142;
-                this.ladoy+=44;
-                
-            }
-            if(skin==1){
-                if(predio.length>0 && predio[predio.length-1].n==0){
-                    this.ladox-=142;
-                    this.ladoy-=44;
 
-                    this.ladox+=69;
-                    this.ladoy-=137;
-                }
+            }
+
+            if(skin==1){
+
                 predio.push({
                     img:fundoImg,
                     alI:352,laI:216,al:352,la:216,
-                    x:60+this.ladox,y:-320+this.ladoy,xI:265,yI:211,
+                    x:proximoX,y:proximoY,xI:265,yI:211,
                     n:skin
                 })
-                this.ladox+=69;
-                this.ladoy-=137;
+
             }
-            
+
         }
         return predio
     },
