@@ -8,6 +8,9 @@ var npc={
         //A GRÁVIDA PODERÁ INTERAGIR SEM ESTAR PRÓXIMO DE UM NPC
         interagir.falaPosivel="";
         this.personagemDepois.splice(0, npc.personagemDepois.length);
+        
+        let posX=estadoTelaGame[globais.nTela].posicao[0]
+        let posY=estadoTelaGame[globais.nTela].posicao[1]
 
         for (let i in npcs) {
             
@@ -64,19 +67,19 @@ var npc={
             }
             //VÊ SE PODE INTERAGIR COM UM PERSONAGEM ----------- POR MEIO DA COLISÃO
             //POR ISSO SE ZERA A VÁRIAVEL POIS SE ESTIVER COM ALGO SEM ESTAR PERTO DE UM NPC PODE DAR PROBLEMAS
-            if(globais.posicaoX+element.x-20<gravida.x+gravida.la && element.y+globais.posicaoY-10<gravida.y+gravida.al && element.x+element.la+globais.posicaoX+20>gravida.x && element.y+ element.al+globais.posicaoY+10>gravida.y){
+            if(posX+element.x-20<gravida.x+gravida.la && element.y+posY-10<gravida.y+gravida.al && element.x+element.la+posX+20>gravida.x && element.y+ element.al+posY+10>gravida.y){
                 interagir.falaPosivel=element.fala.slice();
                 interagir.nome=element.id;
             }
             //DESENHAR O PERSNAGEM E O NOME DELE LOGO EM CIMA DA CABEÇA
 
             //Desenha os personagens que deverão ficar atrás da grávida 
-            if(globais.posicaoY+element.y+element.al<gravida.y+gravida.al){
-                ctx.drawImage(element.img,element.xI,element.yI,element.laI,element.alI,element.x+globais.posicaoX, element.y+globais.posicaoY,element.la,element.al);
+            if(posY+element.y+element.al<gravida.y+gravida.al){
+                ctx.drawImage(element.img,element.xI,element.yI,element.laI,element.alI,element.x+posX, element.y+posY,element.la,element.al);
                 ctx.textAlign = "center";
                 ctx.fillStyle = element.cor;
                 ctx.font= '14px "Supermercado One"';
-                ctx.fillText(element.id, element.x+globais.posicaoX+element.la/2, element.y+globais.posicaoY);
+                ctx.fillText(element.id, element.x+posX+element.la/2, element.y+posY);
                 ctx.textAlign = "left";
             }else{
                 //Guarda os personagens que deverão ficar na frente da gravida em uma variável para que depois se possa desenhar esses personagens
@@ -87,13 +90,16 @@ var npc={
     },
     //desenha os NPCS que estaram na frente da grávida, função chamada na gravida.desenhar
     desenharNPCDepois(){
+        let posX=estadoTelaGame[globais.nTela].posicao[0]
+        let posY=estadoTelaGame[globais.nTela].posicao[1]
+
         for(let i in npc.personagemDepois){
             const element = estadoTelaGame[globais.nTela].personagens[npc.personagemDepois[i].num];
-            ctx.drawImage(element.img,element.xI,element.yI,element.laI,element.alI,element.x+globais.posicaoX, element.y+globais.posicaoY,element.la,element.al);
+            ctx.drawImage(element.img,element.xI,element.yI,element.laI,element.alI,element.x+posX, element.y+posY,element.la,element.al);
             ctx.textAlign = "center";
             ctx.fillStyle = element.cor;
             ctx.font= '14px "Supermercado One"';
-            ctx.fillText(element.id, element.x+globais.posicaoX+element.la/2, element.y+globais.posicaoY);
+            ctx.fillText(element.id, element.x+posX+element.la/2, element.y+posY);
             ctx.textAlign = "left";
         }
     },

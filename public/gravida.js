@@ -96,6 +96,7 @@ var gravida={
         //BAIXO
         if(globais.nTela==0 || globais.nTela==2){
             var tecla = e.key;
+            console.log(tecla)
             const comandoTecla = comandosTeclado[tecla];
             if(comandoTecla){
                 comandoTecla()      
@@ -106,13 +107,16 @@ var gravida={
     },
     // MOVER GRÁVIDA
     mover(){
+        let posX=estadoTelaGame[globais.nTela].posicao[0]
+        let posY=estadoTelaGame[globais.nTela].posicao[1]
+
         if(this.baixo && gravida.y<212.5 && interagir.falaAceita=="" && !colisao(-1,2,estadoTelaGame[globais.nTela].predios)){
             this.x-=0.5;
             this.y+=1;
             this.movendo=true;
         }else if(this.baixo && gravida.y>=212.5 && interagir.falaAceita=="" && !colisao(-1,2,estadoTelaGame[globais.nTela].predios)){
-            globais.posicaoX+=0.5;
-            globais.posicaoY-=1;
+            posX+=0.5;
+            posY-=1;
             this.movendo=true;
         }
         //DIREITA
@@ -121,8 +125,8 @@ var gravida={
             this.y+=0.3145;
             this.movendo=true;
         }else if(this.direita && gravida.x>=425 && interagir.falaAceita=="" && !colisao(2,0.629,estadoTelaGame[globais.nTela].predios)){
-            globais.posicaoX-=1;
-            globais.posicaoY-=0.3145;
+            posX-=1;
+            posY-=0.3145;
             this.movendo=true;
         }
         //CIMA
@@ -131,8 +135,8 @@ var gravida={
             this.y-=1;
             this.movendo=true;
         }else if(this.cima && gravida.y<=182.5 && interagir.falaAceita=="" && !colisao(1,-2,estadoTelaGame[globais.nTela].predios)){
-            globais.posicaoX-=0.5;
-            globais.posicaoY+=1;
+            posX-=0.5;
+            posY+=1;
             this.movendo=true;
         }
         //ESQUERDA
@@ -141,10 +145,12 @@ var gravida={
             this.y-=0.3145;
             this.movendo=true;
         }else if(this.esquerda && gravida.x<=375 && interagir.falaAceita=="" && !colisao(-2,-0.629,estadoTelaGame[globais.nTela].predios)){
-            globais.posicaoX+=1;
-            globais.posicaoY+=0.3145;
+            posX+=1;
+            posY+=0.3145;
             this.movendo=true;
         }
+        estadoTelaGame[globais.nTela].posicao[0]=posX
+        estadoTelaGame[globais.nTela].posicao[1]=posY
     },
 
     

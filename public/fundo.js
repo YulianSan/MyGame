@@ -30,18 +30,22 @@ var fundo={
     },
     // DESENHA PERDIOS 
     desenharPredio(predio){
+        let posX=estadoTelaGame[globais.nTela].posicao[0]
+        let posY=estadoTelaGame[globais.nTela].posicao[1]
         for (var element of predio) {
-            ctx.drawImage(element.img,element.xI,element.yI,element.laI,element.alI,element.x+globais.posicaoX, element.y+globais.posicaoY,element.la,element.al);
+            ctx.drawImage(element.img,element.xI,element.yI,element.laI,element.alI,element.x+posX, element.y+posY,element.la,element.al);
 
         }
     },
     // DESENHA CHÃO
     desenharChao(chao){
-        
+        let posX=estadoTelaGame[globais.nTela].posicao[0]
+        let posY=estadoTelaGame[globais.nTela].posicao[1]
+
         this.Antigoy=0;this.Antigox=0;
         for (var element of chao) {
             
-            ctx.drawImage(element.img,element.xI,element.yI,element.laI,element.alI,this.Antigox+element.x+globais.posicaoX, this.Antigoy+element.y+globais.posicaoY,element.la,element.al);
+            ctx.drawImage(element.img,element.xI,element.yI,element.laI,element.alI,this.Antigox+element.x+posX, this.Antigoy+element.y+posY,element.la,element.al);
             switch (element.dir) {
                 case 0:
                     this.Antigoy=this.Antigoy+44;
@@ -107,8 +111,10 @@ var fundo={
         return chao
     },
     // CRIA PREDIOS
-    CriarPredio(n,skin){
-        let predio=[]
+    CriarPredio(n,skin,prediosJaCriados){
+        
+        let predio=prediosJaCriados
+        
         for (let i = 0;  i< n; i++) {
             if(skin==0){
                 
@@ -138,12 +144,12 @@ var fundo={
                     this.ladox+=69;
                     this.ladoy-=137;
                 }
-                predio={
+                predio.push({
                     img:fundoImg,
                     alI:352,laI:216,al:352,la:216,
                     x:60+this.ladox,y:-320+this.ladoy,xI:265,yI:211,
                     n:skin
-                }
+                })
                 this.ladox+=69;
                 this.ladoy-=137;
             }

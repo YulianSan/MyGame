@@ -25,6 +25,9 @@ var armas={
         //CODIGO PARA GERAR UM ITEM
         globais.PegarItem=-1;
         
+        let posX=estadoTelaGame[globais.nTela].posicao[0]
+        let posY=estadoTelaGame[globais.nTela].posicao[1]
+
         for (let i in armas) {
             var element = armas[i];
             //DA UMA ANIMAÇÃO BÁSICA AUMENTANDO E DIMINUINDO O TAMANHO DO ITEM
@@ -40,13 +43,13 @@ var armas={
                 }
                 
                 
-                ctx.fillRect(element.x-(element.la/2)+globais.posicaoX,element.y - (10)+globais.posicaoY, 30*(element.vida/100), 6)
+                ctx.fillRect(element.x-(element.la/2)+posX,element.y - (10)+posY, 30*(element.vida/100), 6)
                 ctx.fillStyle = "black";
-                ctx.strokeRect(element.x-(element.la/2)+globais.posicaoX,element.y - (10)+globais.posicaoY, 30, 6);
+                ctx.strokeRect(element.x-(element.la/2)+posX,element.y - (10)+posY, 30, 6);
                 
             }
             //COLISÃO DANDO A CHANCE DE PEGAR O ITEM E DESENHANDO OS ATRIBUTOS NA TELA
-            if(+globais.posicaoX+element.x-20<gravida.x+gravida.la && element.y+globais.posicaoY-10<gravida.y+gravida.al && element.x+element.la+globais.posicaoX+20>gravida.x && element.y+ element.al+globais.posicaoY+10>gravida.y){
+            if(posX+element.x-20<gravida.x+gravida.la && element.y+posY-10<gravida.y+gravida.al && element.x+element.la+posX+20>gravida.x && element.y+ element.al+posY+10>gravida.y){
                 this.desenharAtributos(element.nome,element.dano,element.vida,element.historia,element.img,element.xI,element.yI,element.laI,element.alI);
                 globais.PegarItem=i;
             }
@@ -63,7 +66,7 @@ var armas={
                     break;
 
                 }
-            ctx.drawImage(element.img,element.xI,element.yI,element.laI,element.alI,element.x+globais.posicaoX, element.y+globais.posicaoY,element.la,element.al);
+            ctx.drawImage(element.img,element.xI,element.yI,element.laI,element.alI,element.x+posX, element.y+posY,element.la,element.al);
             ctx.globalAlpha = 1;
         }
     },

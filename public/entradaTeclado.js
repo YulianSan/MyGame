@@ -1,4 +1,4 @@
-comandosTeclado={
+const comandosTeclado={
     ArrowUp(){
         gravida.cima=true;
     },

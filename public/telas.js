@@ -8,13 +8,20 @@ var estadoTelaGame=[];
 
 TelaGame.push((indice)=>{
     if(!estadoTelaGame[indice]){
+
         fundo.Antigoy=0
         fundo.Antigox=0
         fundo.ladox=0
         fundo.ladoy=0
+        gravida.x=400
+        gravida.y=200
 
         console.log(`-> Desenhando tela: ${indice}`)
         estadoTelaGame[indice]={
+            posicao:[
+                posicaoX=0,
+                posicaoY=0
+            ],
             personagens:[ 
                 npc.CriarNPC("Vini Hoshi",2,["Vagabunda . . . . ","O poeta é um fingidor.Finge tão completamente.Que chega a fingir que é dor.A dor que deveras sente.E os que lêem o que escreve,Na dor lida sentem bem,Não as duas que ele teve,Mas só a que eles não têm.E assim nas calhas da rodaGira, a entreter a razão,Esse comboio de cordaQue se chama o coração."],450,230,"RosyBrown"),
                 npc.CriarNPC("Yulian Santiago",1,["E o Mario?","Quem é mario?","Aquele que te comeu atrás do armário KAKAKAKA","E o Alex ? (agora vou trollar ele KKK)","O primo do Dunha?","Quem é Dunha?","Aquele que te comeu com a unha KIHSOHOI"],700,430,"blue"),
@@ -34,7 +41,9 @@ TelaGame.push((indice)=>{
                 armas.CriarArmamento(2,"faca",300,340,10,10,"A famosa faca do meme \'Olha a faca\'")
             ],
             predios:
-                fundo.CriarPredio(5,0).concat(fundo.CriarPredio(7,1))
+            fundo.CriarPredio(5,1,fundo.CriarPredio(5,0,[]))
+                
+            
             ,
             ruas:[
                 fundo.CriarChao(0),
@@ -42,6 +51,11 @@ TelaGame.push((indice)=>{
                 fundo.CriarChao(0),
                 fundo.CriarChao(0),
                 fundo.CriarChao(0),
+                fundo.CriarChao(6),
+                fundo.CriarChao(1),
+                fundo.CriarChao(1),
+                fundo.CriarChao(1),
+                fundo.CriarChao(1),
             ]
         }    
     }
@@ -81,15 +95,33 @@ TelaGame.push((indice)=>{
         fundo.Antigox=0
         fundo.ladox=0
         fundo.ladoy=0
+        gravida.x=400
+        gravida.y=200
+
         console.log(`-> Desenhando tela: ${indice}`)
         estadoTelaGame[indice]={
+            posicao:[
+                posicaoX=0,
+                posicaoY=0
+            ],
             personagens:[ 
-                npc.CriarNPC("Yulian Santiago A. Almanza",1,["Parabéns por conseguir"],0,0,"#fff")
+                npc.CriarNPC("Yulian Santiago A. Almanza",1,["Parabéns por conseguir"],0,0,"#fff"),
+                npc.CriarNPC("Soldados",1,["Parabéns"],-50,-50,"#f00"),
+                npc.CriarNPC("Soldados",1,["Parabéns"],-60,-40,"#f00"),
+                npc.CriarNPC("Soldados",1,["Parabéns"],-70,-30,"#f00"),
+                npc.CriarNPC("Soldados",1,["Parabéns"],-80,-20,"#f00"),
+                npc.CriarNPC("Soldados",1,["Parabéns"],-90,-10,"#f00"),
+
+                npc.CriarNPC("Soldados",1,["Parabéns"],-100,-60,"#f00"),
+                npc.CriarNPC("Soldados",1,["Parabéns"],-110,-50,"#f00"),
+                npc.CriarNPC("Soldados",1,["Parabéns"],-120,-40,"#f00"),
+                npc.CriarNPC("Soldados",1,["Parabéns"],-130,-30,"#f00"),
+                npc.CriarNPC("Soldados",1,["Parabéns"],-140,-20,"#f00"),          
             ],
             itens:[
                 armas.CriarArmamento(1,"Troféu",200,170,0,100,"Para béns, olha o seu Troféu"),
             ],
-            predios: fundo.CriarPredio(7,0)
+            predios: fundo.CriarPredio(7,0,[])
             ,
             ruas:[
                 fundo.CriarChao(0),
@@ -116,7 +148,15 @@ TelaGame.push((indice)=>{
 })
 
 function limparTela(TelaQueSeraAtiva){
-    
+    if(TelaQueSeraAtiva=="back"){
+        globais.nTela=globais.historicoDeNavegacao[globais.historicoDeNavegacao.length-2]
+        globais.historicoDeNavegacao.push(
+            globais.historicoDeNavegacao[globais.historicoDeNavegacao.length-2]
+            
+        )
+        return
+    }
+    globais.historicoDeNavegacao.push(TelaQueSeraAtiva)
     globais.nTela=TelaQueSeraAtiva
     
     
