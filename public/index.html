@@ -64,7 +64,13 @@
         }
         //LOOP
         function main() {
+            let altura = window.innerHeight;
+            let largura = window.innerWidth;
+            if(largura<altura){
+                console.log("oi")
+            }
             telaDesenhar();
+            
             frames++;    
             requestAnimationFrame(main);
         }

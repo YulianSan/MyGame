@@ -1,5 +1,6 @@
 var fundo={
-    chao:[],botoes:[],
+
+    botoes:[],
     Antigoy:0,Antigox:0,
     // DESENHA BOTÃO
     desenharBotoes(){
@@ -41,110 +42,120 @@ var fundo={
         let posX=estadoTelaGame[globais.nTela].posicao[0]
         let posY=estadoTelaGame[globais.nTela].posicao[1]
 
-        this.Antigoy=0;this.Antigox=0;
-        for (var element of chao) {
+        for (let i=0;i<chao.length;i++) {
+            const element = chao[i];
             
-            ctx.drawImage(element.img,element.xI,element.yI,element.laI,element.alI,this.Antigox+element.x+posX, this.Antigoy+element.y+posY,element.la,element.al);
-            switch (element.dir) {
-                case 0:
-                    this.Antigoy=this.Antigoy+44;
-                    this.Antigox=this.Antigox+142;
-                break;
-                case 1:
-                    this.Antigoy=this.Antigoy-130;
-                    this.Antigox=this.Antigox+65;
-                break;
-                case 2:
-                    this.Antigoy=this.Antigoy+element.al;
-                break;
-                case 3:
-                    this.Antigox=this.Antigox-element.la;
-                case 4:
-                case 5:
-                    this.Antigoy=this.Antigoy+44;
-                    this.Antigox=this.Antigox+140;
-                break;
-                case 6:
-                    this.Antigoy=this.Antigoy-120;
-                    this.Antigox=this.Antigox+63;
-                break;
-                case 7:
-                this.Antigoy=this.Antigoy+element.al;
-                break;   
-            }   
+            ctx.drawImage(element.img,element.xI,element.yI,element.laI,element.alI,element.x+posX, element.y+posY,element.la,element.al); 
         }
         
     },
     //CRIAR CHÃO
-    CriarChao(n){
-        let chao={}
-        if(n==0 || n==2){
-            chao={
-                img:fundoImg,alI:177,laI:208,al:177,la:208,x:0,y:0,xI:223,yI:16,dir:n
+    CriarChao(skin,n,vlr_x,vlr_y,chaoJaCriado){
+
+        let chao=chaoJaCriado
+        
+        for (let i = 0; i < n; i++) {
+            const elementAnterior = chao[chao.length-1] || null;
+            var proximoX = vlr_x
+            var proximoY = vlr_y
+            if(elementAnterior){
+                proximoX = elementAnterior.x
+                proximoY = elementAnterior.y
+                switch (skin) {
+                    case 0:
+                        proximoY+=44;
+                        proximoX+=142;
+                    break;
+                    case 1:
+                        proximoY-=130;
+                        proximoX+=65;
+                    break;
+                    case 4:
+                    case 5:
+                    case 6:
+                        proximoY+=44;
+                        proximoX+=140;
+                    break;
+                    // case 6:
+                    //     proximoY-=120;
+                    //     proximoX+=63;
+                    // break; 
+                }
             }
-        }if(n==1 || n==3){
-            chao={
-                img:fundoImg,alI:177,laI:212,al:177,la:212,x:0,y:0,xI:3,yI:12,dir:n
-            }
-        }if(n==4){
-            chao={
-                img:fundoImg,alI:150,laI:215,al:150,la:215,x:0,y:27,xI:20,yI:580,dir:n
-            }
-        }if(n==5){
-            chao={
-                img:fundoImg,alI:215,laI:150,al:215,la:150,x:0,y:0,xI:258,yI:594,dir:n
-            }
-        }if(n==6){
-            chao={
-                img:fundoImg,alI:150,laI:215,al:150,la:215,x:0,y:0,xI:258,yI:594,dir:n
-            }
-        }if(n==7){
-            chao={
-                img:fundoImg,alI:61,laI:62,al:122,la:121,x:0,y:0,xI:164,yI:115,dir:n
-            }
-        }if(n==8){
-            chao={
-                img:fundoImg,alI:105,laI:110,al:105,la:110,x:0,y:0,xI:171,yI:3,dir:n
-            }
+            if(skin==0 || skin==2){
+                chao.push({
+                    img:fundoImg,alI:177,laI:208,al:177,la:208,x:0+proximoX,y:0+proximoY,xI:223,yI:16,dir:skin
+                })
+            }if(skin==1 || skin==3){
+                chao.push({
+                    img:fundoImg,alI:177,laI:212,al:177,la:212,x:0+proximoX,y:0+proximoY,xI:3,yI:12,dir:skin
+                })
+            }if(skin==4){
+                chao.push({
+                    img:fundoImg,alI:150,laI:215,al:150,la:215,x:0+proximoX,y:27+proximoY,xI:20,yI:580,dir:skin
+                })
+            }if(skin==5){
+                chao.push({
+                    img:fundoImg,alI:215,laI:150,al:215,la:150,x:0+proximoX,y:0+proximoY,xI:258,yI:594,dir:skin
+                })
+            }if(skin==6){
+                chao.push({
+                    img:fundoImg,alI:150,laI:215,al:150,la:215,x:0+proximoX,y:0+proximoY,xI:258,yI:594,dir:skin
+                })
+            }if(skin==7){
+                chao.push({
+                    img:fundoImg,alI:61,laI:62,al:122,la:121,x:0+proximoX,y:0+proximoY,xI:164,yI:115,dir:skin
+                })
+            }if(skin==8){
+                chao.push({
+                    img:fundoImg,alI:105,laI:110,al:105,la:110,x:0+proximoX,y:0+proximoY,xI:171,yI:3,dir:skin
+                })
+            }  
         }
+
         return chao
     },
     // CRIA PREDIOS
     CriarPredio(n,skin,prediosJaCriados){
         
-        let predio=prediosJaCriados
+        let predio=prediosJaCriados || []
+        // this.ladox+=69;
+        // this.ladoy-=137;
         
+        // this.ladox+=142;
+        // this.ladoy+=44;
         
                 
 
         for (let i = 0;  i< n; i++) {
-            // this.ladox+=69;
-            // this.ladoy-=137;
             
-            // this.ladox+=142;
-            // this.ladoy+=44;
-            let predioAnterior=predio[predio.length-1] || 0
+            let predioAnterior=predio[predio.length-1] || null
             
             let proximoX=60
             let proximoY=-320
 
-            if(predioAnterior!=0){
+            if(predioAnterior){
                 proximoX=predioAnterior.x
                 proximoY=predioAnterior.y
 
-                if(skin==0){
-                    proximoX+=142
-                    proximoY+=44
+                switch (skin) {
+                    case 0:
+                        proximoX+=142
+                        proximoY+=44
+                        break;
+                    
+                    case 1:
+                        proximoX+=69
+                        proximoY-=137
+                        break;
+
+                    default:
+                        return {}
+                        break;
                 }
 
-                else if(skin==1){
-                    proximoX+=69
-                    proximoY-=137
-                
-                }
             }
             
-            console.log(proximoX)
 
             if(skin==0){
 

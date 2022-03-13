@@ -43,18 +43,12 @@ TelaGame.push((indice)=>{
             predios:
                 fundo.CriarPredio(5,1,fundo.CriarPredio(5,0,[]))
             ,
-            ruas:[
-                fundo.CriarChao(0),
-                fundo.CriarChao(0),
-                fundo.CriarChao(0),
-                fundo.CriarChao(0),
-                fundo.CriarChao(0),
-                fundo.CriarChao(6),
-                fundo.CriarChao(1),
-                fundo.CriarChao(1),
-                fundo.CriarChao(1),
-                fundo.CriarChao(1),
-            ]
+            ruas:
+                fundo.CriarChao(1,7,100,100,
+                fundo.CriarChao(6,1,100,100,
+                fundo.CriarChao(0,7,100,100,[])
+                )),
+            
         }    
     }
     fundo.desenharResto("#61a225");
@@ -122,11 +116,7 @@ TelaGame.push((indice)=>{
             ],
             predios: fundo.CriarPredio(7,0,[])
             ,
-            ruas:[
-                fundo.CriarChao(0),
-                fundo.CriarChao(0),
-                fundo.CriarChao(0),
-            ]
+            ruas:fundo.CriarChao(0,10,50,20,[])
         }
     }
 
