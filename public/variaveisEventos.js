@@ -29,7 +29,6 @@ window.onload=function carregado(){
     //     canvas.style.animation="surgir 1.5s"
     // },3000)
     msg.style.display="none";
-    canvas.style.display="inherit";
 }
 
 //CLICKS COM COLISÕES 

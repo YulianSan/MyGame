@@ -9,10 +9,6 @@ var estadoTelaGame=[];
 TelaGame.push((indice)=>{
     if(!estadoTelaGame[indice]){
 
-        fundo.Antigoy=0
-        fundo.Antigox=0
-        fundo.ladox=0
-        fundo.ladoy=0
         gravida.x=400
         gravida.y=200
 
@@ -83,14 +79,10 @@ TelaGame.push((indice)=>{
 TelaGame.push((indice)=>{
     if(!estadoTelaGame[indice]){
 
-        fundo.Antigoy=0
-        fundo.Antigox=0
-        fundo.ladox=0
-        fundo.ladoy=0
         gravida.x=400
         gravida.y=200
 
-        console.log(`-> Desenhando tela: ${indice}`)
+        console.log(`-> Criando a tela: ${indice}`)
         estadoTelaGame[indice]={
             posicao:[
                 posicaoX=0,
@@ -119,7 +111,7 @@ TelaGame.push((indice)=>{
             ruas:fundo.CriarChao(0,10,50,20,[])
         }
     }
-
+    
     fundo.desenharResto("#000");
     fundo.desenharChao(estadoTelaGame[indice].ruas);
     gravida.anima();

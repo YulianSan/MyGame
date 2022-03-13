@@ -96,7 +96,6 @@ var gravida={
         //BAIXO
         if(globais.nTela==0 || globais.nTela==2){
             var tecla = e.key;
-            console.log(tecla)
             const comandoTecla = comandosTeclado[tecla];
             if(comandoTecla){
                 comandoTecla()      
